@@ -1,4 +1,3 @@
-
 import general.OrderClient;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
@@ -8,10 +7,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import java.util.Arrays;
 import java.util.Collection;
-
 import static org.hamcrest.Matchers.*;
 
 @RunWith(Parameterized.class)
@@ -22,6 +19,7 @@ public class CreateAnOrderTest {
     private int track = -1;
 
     public CreateAnOrderTest(String color) {
+
         this.color = color;
     }
 
@@ -60,7 +58,7 @@ public class CreateAnOrderTest {
                 if (statusCode == 200) {
                     System.out.println("Заказ успешно отменен");
                 } else {
-                    // Логируем ошибку, но НЕ падаем
+                    // Логируем ошибку
                     System.err.println("ОШИБКА ОЧИСТКИ (не влияет на тест):");
                     System.err.println("  Код: " + statusCode);
                     System.err.println("  Тело: " + cancelResponse.getBody().asString());

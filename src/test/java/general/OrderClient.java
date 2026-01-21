@@ -28,12 +28,10 @@ public class OrderClient {
             json.append("\"comment\":\"\"");
 
             // МАССИВ color
-            if (color != null) {
-                if (color.equals("BLACK")) {
-                    json.append(",\"color\":[\"BLACK\"]");
-                } else if (color.equals("GREY")) {
-                    json.append(",\"color\":[\"GREY\"]");
-                } else {
+            if (color != null && !color.isEmpty()) {
+                if (color.equals("BLACK") || color.equals("GREY")) {
+                    json.append(",\"color\":[\"").append(color).append("\"]");
+                } if (color.equals("BLACK,GREY")) {
                     json.append(",\"color\":[\"BLACK\",\"GREY\"]");
                 }
             }
