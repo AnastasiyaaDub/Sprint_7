@@ -1,15 +1,13 @@
 import general.Config;
 import general.CourierClient;
 import io.qameta.allure.junit4.DisplayName;
-
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
-
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
+
 
 public class CreatingACourierTest {
     private String login;
@@ -28,7 +26,6 @@ public class CreatingACourierTest {
     @Test
     @DisplayName("Успешное создание курьера")
     @Description("POST запрос на создание курьера")
-    @Step("Создание курьера с корректным логином и паролем")
 
     public void createCourierSuccessfully() {
         Response response = CourierClient.create(login, password, firstName);
@@ -42,7 +39,6 @@ public class CreatingACourierTest {
     @Test
     @DisplayName("Создание курьера без логина")
     @Description("При отправке запроса без логина возвращается 400 Bad Request")
-    @Step("Создание курьера без логина")
 
     public void createCourierWithoutLogin() {
         Response response = CourierClient.create("", password, firstName);
@@ -55,7 +51,6 @@ public class CreatingACourierTest {
     @Test
     @DisplayName("Создание курьера без пароля")
     @Description("При отправке запроса без пароля возвращается 400 Bad Request")
-    @Step("Создание курьера без пароля")
 
     public void createCourierWithoutPassword() {
         Response response = CourierClient.create(login, "", firstName);
@@ -65,16 +60,15 @@ public class CreatingACourierTest {
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
-        @Test
-        @DisplayName("Создание дубликата курьера")
-        @Description("При создании курьера с существующим логином возвращается 409 Conflict")
-        @Step("Создание курьера с уже существующим логином")
+    @Test
+    @DisplayName("Создание дубликата курьера")
+    @Description("При создании курьера с существующим логином возвращается 409 Conflict")
 
         public void createDuplicateCourier() {
             Response firstResponse = CourierClient.create(login, password, firstName);
             firstResponse.then().statusCode(201);
 
-            // 2. Пробуем создать ТОТ ЖЕ (дубликат)
+            // Пробуем создать дубликат
             Response duplicateResponse = CourierClient.create(login, password, firstName);
             duplicateResponse.then()
                     .log().all()

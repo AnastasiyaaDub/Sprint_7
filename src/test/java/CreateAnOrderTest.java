@@ -1,6 +1,5 @@
 import general.OrderClient;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
@@ -13,8 +12,6 @@ import static org.hamcrest.Matchers.*;
 
 @RunWith(Parameterized.class)
 public class CreateAnOrderTest {
-
-  //  private String firstName, lastName, address;
     private String color;
     private int track = -1;
 
@@ -36,7 +33,7 @@ public class CreateAnOrderTest {
     @Test
     @DisplayName("Создание заказа с разными цветами")
     @Description("Проверка BLACK, GREY, BLACK+GREY, без цвета")
-    @Step ("Создание заказа, параметризованный тест")
+
     public void createOrderWithDifferentColors() {
         Response response = OrderClient.createOrder(color);
         response.then()

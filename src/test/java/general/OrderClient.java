@@ -1,12 +1,13 @@
 package general;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
-
 import java.time.LocalDate;
 
 public class OrderClient {
 
+    @Step("Создать заказ")
     public static Response createOrder(String color) {
         long timestamp = System.currentTimeMillis();
 
@@ -31,7 +32,7 @@ public class OrderClient {
             if (color != null && !color.isEmpty()) {
                 if (color.equals("BLACK") || color.equals("GREY")) {
                     json.append(",\"color\":[\"").append(color).append("\"]");
-                } if (color.equals("BLACK,GREY")) {
+                } else if (color.equals("BLACK,GREY")) {
                     json.append(",\"color\":[\"BLACK\",\"GREY\"]");
                 }
             }
@@ -46,7 +47,8 @@ public class OrderClient {
                     .post(Config.CREATE_AN_ORDER);
         }
 
-        //Отменить заказ {track}
+    //Отменить заказ
+    @Step("Отменить заказ")
         public static Response cancelOrder(int track) {
             return given()
                     .baseUri(Config.BASE_URL)

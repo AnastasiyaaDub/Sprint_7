@@ -1,13 +1,14 @@
 package general;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
-
 public class CourierClient {
 
     //ОБЩИЕ МЕТОДЫ ДЛЯ ТЕСТОВ С КУРЬЕРАМИ
 
-        //Создать курьера {login}
+    //Создать курьера
+    @Step("Создание курьера")
         public static Response create(String login, String password, String firstName) {
             return given()
                     .header("Content-type", "application/json")
@@ -20,7 +21,9 @@ public class CourierClient {
                     .post(Config.CREATING_A_COURIER);
         }
 
-        //Логин курьера {login}
+
+    //Логин курьера
+    @Step("Логин курьера")
         public static Response login(String login, String password) {
             return given()
                     .header("Content-type", "application/json")
@@ -33,7 +36,8 @@ public class CourierClient {
                     .post(Config.COURIER_LOGIN);
         }
 
-    //Удалить курьера с ID {courierId}
+    //Удалить курьера с ID
+    @Step("Удалить курьера")
     public static Response delete(String courierId) {
         return given()
                 .baseUri(Config.BASE_URL)

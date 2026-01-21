@@ -1,7 +1,6 @@
 import general.Config;
 import general.CourierClient;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
@@ -28,13 +27,12 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Успешный логин курьера")
     @Description("POST запрос на логин курьера")
-    @Step("Логин курьера с корректными данными")
 
     public void successfulCourierLogin() {
-        // 1. Создаем курьера (предусловие)
+        //Создать курьера
         CourierClient.create(login, password, firstName).then().statusCode(201);
 
-        // 2. Логинимся
+        //Логин
         Response response = CourierClient.login(login, password);
         response.then()
                 .log().all()
@@ -45,12 +43,12 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Логин с неправильным паролем")
     @Description("Неправильный пароль возвращает 404")
-    @Step("Попытка залогинить курьера с неправильным паролем")
+
     public void loginWithWrongPassword() {
-        // 1. Создаем курьера (предусловие)
+        //Создать курьера
         CourierClient.create(login, password, firstName).then().statusCode(201);
 
-        // 2. Логинимся с неправильным паролем
+        //Логин с неправильным паролем
         Response response = CourierClient.login(login, "wrong_password");
         response.then()
                 .log().all()
@@ -61,12 +59,12 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Логин с неправильным логином")
     @Description("Неправильный логин возвращает 404")
-    @Step("Попытка залогинить курьера с неправильным логином")
+
     public void loginWithWrongLogin() {
-        // 1. Создаем курьера (предусловие)
+        //Создать курьера
         CourierClient.create(login, password, firstName).then().statusCode(201);
 
-        // 2. Логинимся с неправильным логином
+        //Логин с неправильным логином
         Response response = CourierClient.login("wrong_login", password);
         response.then()
                 .log().all()
@@ -77,7 +75,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Логин без пароля")
     @Description("Отсутствие пароля возвращает 400")
-    @Step("Попытка залогинить курьера без пароля")
+
     public void loginWithoutPassword() {
         Response response = CourierClient.login(login, "");
         response.then()
@@ -89,7 +87,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Логин без логина")
     @Description("Отсутствие логина возвращает 400")
-    @Step("Попытка залогинить курьера без логина")
+
     public void loginWithoutLogin() {
         Response response = CourierClient.login("", password);
         response.then()
@@ -101,7 +99,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Логин несуществующего курьера")
     @Description("Авторизация под несуществующим пользователем возвращает 404")
-    @Step("Попытка залогинить несуществующего курьера")
+
     public void loginNonExistentCourier() {
         Response response = CourierClient.login("nonexistent_courier", "wrong_password");
         response.then()
@@ -111,7 +109,8 @@ public class CourierLoginTest {
     }
 
 
-    @After  //постусловие
+    @After
+    //Постусловие
     public void cleanup() {
         try {
             Response loginResponse = CourierClient.login(login, password);
