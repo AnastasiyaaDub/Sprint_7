@@ -61,8 +61,7 @@ public class CreateAnOrderTest {
                     System.err.println("  Тело: " + cancelResponse.getBody().asString());
 
                     // Для Allure
-                    io.qameta.allure.Allure.step("Очистка не удалась (статус " + statusCode + ")",
-                            () -> { /* пустой шаг */ });
+                    io.qameta.allure.Allure.step("Очистка не удалась (статус " + statusCode);
                 }
             } catch (Exception e) {
                 System.err.println("ИСКЛЮЧЕНИЕ ПРИ ОЧИСТКЕ (игнорируется): " + e.getMessage());

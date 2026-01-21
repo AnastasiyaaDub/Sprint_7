@@ -50,11 +50,16 @@ public class OrderClient {
     //Отменить заказ
     @Step("Отменить заказ")
         public static Response cancelOrder(int track) {
+
+        String requestBody = String.format("{\"track\": %d}", track);
+
             return given()
                     .baseUri(Config.BASE_URL)
+                    .header("Content-type", "application/json")
+                    .body(requestBody)
                     .log().all()
                     .when()
-                    .put(Config.CANCEL_ORDER.replace("{track}", String.valueOf(track)))
+                    .put(Config.CANCEL_ORDER)
                     .then()
                     .extract().response();
         }
