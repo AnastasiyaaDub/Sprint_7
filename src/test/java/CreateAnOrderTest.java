@@ -58,10 +58,10 @@ public class CreateAnOrderTest {
                 int statusCode = cancelResponse.statusCode();
 
                 if (statusCode == 200) {
-                    System.out.println("✓ Заказ успешно отменен");
+                    System.out.println("Заказ успешно отменен");
                 } else {
                     // Логируем ошибку, но НЕ падаем
-                    System.err.println("⚠ ОШИБКА ОЧИСТКИ (не влияет на тест):");
+                    System.err.println("ОШИБКА ОЧИСТКИ (не влияет на тест):");
                     System.err.println("  Код: " + statusCode);
                     System.err.println("  Тело: " + cancelResponse.getBody().asString());
 
@@ -70,7 +70,7 @@ public class CreateAnOrderTest {
                             () -> { /* пустой шаг */ });
                 }
             } catch (Exception e) {
-                System.err.println("⚠ ИСКЛЮЧЕНИЕ ПРИ ОЧИСТКЕ (игнорируется): " + e.getMessage());
+                System.err.println("ИСКЛЮЧЕНИЕ ПРИ ОЧИСТКЕ (игнорируется): " + e.getMessage());
             }
         }
     }

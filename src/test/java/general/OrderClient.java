@@ -48,7 +48,7 @@ public class OrderClient {
                     .post(Config.CREATE_AN_ORDER);
         }
 
-        //"Отменить заказ {track}
+        //Отменить заказ {track}
         public static Response cancelOrder(int track) {
             return given()
                     .baseUri(Config.BASE_URL)
